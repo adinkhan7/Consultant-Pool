@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dRi Consultant Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">dRi <span>Consultants</span></div>
+      <div class="header-meta" id="headerMeta">—</div>
+    </div>
+  </header>
+
+  <!-- UNDO TOAST -->
+  <div id="undoToast" class="undo-toast hidden">
+    <span id="undoMessage"></span>
+    <button onclick="undoAction()">Undo</button>
+    <button class="close-toast" onclick="dismissToast()">✕</button>
+  </div>
+
+  <main>
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInput" placeholder="Search by name, expertise, location…">
+      </div>
+      <div class="filters">
+        <select id="availabilityFilter">
+          <option value="">All Availability</option>
+          <option value="Available">Available</option>
+          <option value="Busy">Busy</option>
+        </select>
+        <select id="locationFilter">
+          <option value="">All Locations</option>
+        </select>
+        <select id="expertiseFilter">
+          <option value="">All Expertise</option>
+        </select>
+        <input id="rateMin" type="number" placeholder="Rate min" min="0">
+        <input id="rateMax" type="number" placeholder="Rate max" min="0">
+        <button class="btn-secondary" onclick="clearFilters()">Clear</button>
+        <button class="btn-primary" onclick="loadConsultants()">↻ Refresh</button>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table id="consultantTable">
+        <thead></thead>
+        <tbody>
+          <tr><td colspan="99" class="empty-state">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADD FORM -->
+    <section class="add-section">
+      <h2>Add Consultant</h2>
+      <form id="consultantForm">
+        <div class="form-grid">
+          <div class="field">
+            <label>Name *</label>
+            <input name="Name" placeholder="Full name" required>
+          </div>
+          <div class="field">
+            <label>Age</label>
+            <input name="Age" type="number" placeholder="Age" min="18" max="99">
+          </div>
+          <div class="field">
+            <label>Expertise</label>
+            <input name="Expertise" placeholder="e.g. Development Economics">
+          </div>
+          <div class="field">
+            <label>Years of Experience</label>
+            <input name="Years Exp" type="number" placeholder="Years" min="0">
+          </div>
+          <div class="field">
+            <label>Location</label>
+            <input name="Location" placeholder="City">
+          </div>
+          <div class="field">
+            <label>Hourly Rate (USD)</label>
+            <input name="Hourly Rate (USD)" type="number" placeholder="e.g. 85" min="0">
+          </div>
+          <div class="field">
+            <label>Availability</label>
+            <select name="Availability">
+              <option value="Available">Available</option>
+              <option value="Busy">Busy</option>
+            </select>
+          </div>
+          <div class="field field-wide">
+            <label>CV Summary <small>(shown on hover)</small></label>
+            <textarea name="Summary" placeholder="Brief professional summary…"></textarea>
+          </div>
+          <div class="field field-wide">
+            <label>Upload CV <small>(PDF or Word)</small></label>
+            <div class="file-drop" id="fileDrop">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span id="fileLabel">Drop CV here or click to browse</span>
+              <input type="file" id="cvFile" accept=".pdf,.doc,.docx">
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary btn-lg" id="submitBtn">Add Consultant</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
